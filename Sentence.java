@@ -1,3 +1,5 @@
+import java.util.HashSet;
+import java.util.Set;
 
 /** 
  * @author Chris Murphy
@@ -32,5 +34,35 @@ public class Sentence {
 		return text;
 	}
 
+	// judge if two sentences are equal
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof Sentence) {
+			Sentence s = (Sentence) obj;
+			return this.score == s.score && this.text.equals(s.text);
+		}
+		return false;
+	}
+
+	// hashcode method
+	@Override
+	public int hashCode(){
+		return text.hashCode();
+	}
+
+	// main method for testing
+	public static void main(String[] args) {
+		Sentence s = new Sentence(1, "This is a test.");
+		Set <Sentence> sentences = new HashSet<Sentence>();
+		sentences.add(s);
+		Sentence s1 = new Sentence(1, "This is a test.");
+		// check if set contains s1 by using equals method
+		System.out.println(sentences.contains(s1));
+		sentences.add(s1);
+		System.out.println(sentences.size());
+	}
 	
 }
