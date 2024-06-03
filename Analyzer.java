@@ -18,7 +18,39 @@ public class Analyzer {
 		/*
 		 * Implement this method in Part 2
 		 */
-		return null;
+		if( sentences == null || sentences.isEmpty()) {
+			return new HashMap<String, Double>();
+		}
+
+		Map<String, Double> wordScores = new HashMap<String, Double>();
+		Map<String, Integer> wordCount = new HashMap<String, Integer>();
+
+		for(Sentence s : sentences) {
+			String[] words = s.getText().toLowerCase().split(" ");
+			for (String word : words) {
+				if (word.length() == 0) {
+					continue;
+				}
+				if (word.charAt(0) < 'a' || word.charAt(0) > 'z') {
+					continue;
+				}
+				if (wordCount.containsKey(word)) {
+					wordCount.put(word, wordCount.get(word) + 1);
+					wordScores.put(word, wordScores.get(word) + s.getScore());
+				} else {
+					wordCount.put(word, 1);
+					wordScores.put(word, (double) s.getScore());
+				}
+				
+			}
+			
+		}
+
+		for(String word : wordScores.keySet()) {
+			wordScores.put(word, wordScores.get(word) / wordCount.get(word));
+		}
+
+		return wordScores;
 	}
 	
 	/**
@@ -35,7 +67,33 @@ public class Analyzer {
 		/*
 		 * Implement this method in Part 3
 		 */
-		return 0;
+		String[] words = sentence.toLowerCase().split(" ");
+		double score = 0;
+		int count = 0;
+		for (String word : words) {
+			if (word.length() == 0) {
+				continue;
+			}
+			if (word.charAt(0) < 'a' || word.charAt(0) > 'z') {
+				continue;
+			}
+			if (wordScores.containsKey(word)) {
+				score += wordScores.get(word);
+				
+			}
+			count++;
+		}
+		if (count == 0) {
+			return 0;
+		}
+		return score / count;
+	}
+
+	public static void main(String[] args) 
+	{
+		Set <Sentence> sentences = Reader.readFile("reviews.txt");
+		Map<String, Double> wordScores = calculateWordScores(sentences);
+
 	}
 
 

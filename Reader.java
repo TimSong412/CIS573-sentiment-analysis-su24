@@ -41,8 +41,8 @@ public class Reader {
 					continue;
 
 								
-				System.out.println(score);
-				System.out.println(text);
+				// System.out.println(score);
+				// System.out.println(text);
 				
 				Sentence s = new Sentence(score, text);
 				sentences.add(s);
@@ -52,8 +52,7 @@ public class Reader {
 			System.out.println("Error reading file: " + e.getMessage());
 			throw new IllegalArgumentException("Error reading file: " + e.getMessage());
 		}
-
-		return null;
+		return sentences;
 	}
 
 	// main method for testing
