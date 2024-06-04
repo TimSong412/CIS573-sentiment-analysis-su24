@@ -67,6 +67,9 @@ public class Analyzer {
 		/*
 		 * Implement this method in Part 3
 		 */
+		if (wordScores == null || sentence == null) {
+			return 0;
+		}
 		String[] words = sentence.toLowerCase().split(" ");
 		double score = 0;
 		int count = 0;
